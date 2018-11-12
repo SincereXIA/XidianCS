@@ -1,0 +1,271 @@
+实习报告1.4题 长整数四则运算
+
+题目：设计一个实现任意长的整数进行加法计算的演示程序
+班级：1603019 姓名：张俊华 学号：16030199025 完成日期：2017/10/22
+
+一、	需求分析
+
+1.	本演示程序中，输入的整数无限长，整数输入的格式为：从右侧起，每四位一个逗号分隔符，整数头部用“-”号区分正负，回车结束整数输入，连续输入两个整数之后，计算出两个整数相加的结果。输出格式与输入格式相同。
+2.	程序执行的命令包括：
+1）	构造长整数1；2）构造长整数2；3）求和
+3.	测试数据：
+1）	输入数据：0 0
+	输出数据：0
+2）	输入数据：-2345,6789 -7654,3211
+	输出数据：-1,0000,0000
+3）	输入数据：-9999,9999,9999 -9999,9999,9999
+
+输出数据：
+-1,9999,9999,9998
+
+
+
+
+
+
+二、	概要设计
+
+为实现上述功能，应以双向循环链储存长整数，每个节点储存输入时以逗号分隔的四位整数。
+为此，需要一个抽象数据类型：长整数，。
+1.	长整数的抽象数据结构定义为：
+ADT SuperLongInt{
+    数据对象：D={ai|ai∈Node，i=1,2,...,n，n>=0}
+    数据关系：R1={<ai-1,ai>|ai-1,ai∈D, i=2,...,n}}
+    			R2={<ai+1,ai>|ai-1,ai∈D, i=2,...,n}}
+    基本操作：
+    /**
+     * 在长整数链表指针后部插入新节点
+     * @param longIntNode
+     * @param data
+     */
+    void InsDataAfter(LongIntNode &longIntNode, int data);
+
+    /**
+     * 初始化超长整数链表
+     * @param superLongInt
+     */
+    void InitSuperLongInt(SuperLongInt *&superLongInt);
+
+    /**
+     * 求两个长整数的值
+     * @param superLongInt
+     */
+
+    SuperLongInt * AddSuperLongInt(SuperLongInt *&a, SuperLongInt *&b)
+}ADT SuperLongInt
+
+2.	本程序包含以下模块：
+1）	主程序模块：
+int main(){
+	初始化两个长整数；
+	从控制台读取输入，创建两个长整数；
+	计算长整数的和；
+	打印结果；
+}
+
+2）	长整数单元模块——实现长整数抽象数据类型
+3）	长整数结构单元模块——定义长整数链表的节点结构
+
+各模块之间的调用关系如下：
+                主程序模块
+                ↓
+                长整数单元模块
+                ↓
+                长整数结构单元模块
+
+
+
+
+
+三、	详细设计
+
+1.	节点类型和指针类型
+typedef struct SuperLongInt{
+    int data=0;
+    SuperLongInt * next;
+    SuperLongInt * prior;
+}SuperLongInt ,*LongIntNode;
+2.	根据基本操作的特点，附设头结点，头结点的数据域保存元素的正负，-1代表负数，+1代表正数。
+3.	超长整数的基本操作设置如下
+/**
+ * 在链表指针后部插入新节点
+ * @param longIntNode
+ * @param data
+ */
+void InsDataAfter(LongIntNode &longIntNode, int data) {
+    LongIntNode p = (LongIntNode) malloc(sizeof(SuperLongInt));
+    p->data = data;
+    p->next = longIntNode->next;
+    p->prior = longIntNode;
+    longIntNode->next->prior = p;
+    longIntNode ->next = p;
+}
+
+/**
+ * 初始化超长整数链表
+ * @param superLongInt
+ */
+void InitSuperLongInt(SuperLongInt *&superLongInt) {
+    superLongInt = (SuperLongInt *) malloc(sizeof(SuperLongInt));
+    superLongInt->data = 1;
+    superLongInt->next = superLongInt;
+    superLongInt->prior = superLongInt;
+}
+
+/**
+ * 从控制台捕捉超长整数输入
+ * @param superLongInt
+ * @return
+ */
+SuperLongInt * ScanSuperLongInt(SuperLongInt *&superLongInt) {
+    char headData[6]={0};
+    scanf("%[^,;0-9]",headData);
+    if (headData[0] == '-'){//负数判断
+        superLongInt ->data = -1;
+    } else {
+        superLongInt->data = 1;
+    }
+
+    LongIntNode p = superLongInt;
+    //sscanf(headData,"%d",p->data);
+    //录入数据
+    int nodeData;
+    do{
+        scanf("%d",&nodeData);
+        InsDataAfter(p, nodeData);
+        p = p->next;
+    }while (getchar()!='\n');
+    return superLongInt;
+}
+
+两个长整数相加的算法：
+SuperLongInt * AddSuperLongInt(SuperLongInt *&a, SuperLongInt *&b){
+    LongIntNode pa = a;
+    LongIntNode pb = b;
+    SuperLongInt *result;
+    InitSuperLongInt(result);
+    int largeFlag = 1;
+    //比较ab绝对值的大小 1代表a大
+    while (pa->prior!=a||pb->prior!=b){
+        if(pa->prior==a) {
+            InsDataAfter(a, 0);
+            largeFlag = -1;
+        }
+        if(pb->prior==b){
+            InsDataAfter(b,0);
+            largeFlag = 1;
+        }
+
+        pa = pa->prior;
+        pb = pb->prior;
+
+    }
+
+    if(a->data * b->data > 0){
+
+        result->data = a->data;
+
+        int nodeResult;
+        int addPrior = 0;
+
+        pa = a;
+        pb = b;
+        while ((pa->prior)!=a&&(pb->prior)!=b){
+            pa = pa->prior;
+            pb = pb->prior;
+            nodeResult = (pa->data)+(pb->data)+addPrior;
+            addPrior = 0;
+            if(nodeResult<0){
+                addPrior = -1;
+                nodeResult = 10000+nodeResult;
+            } else if (nodeResult>9999){
+                nodeResult = nodeResult-10000;
+                addPrior =1;
+            };
+
+            InsDataAfter(result, nodeResult);
+        }
+
+        if (addPrior!=0){
+            InsDataAfter(result, addPrior);
+        }
+    } else{
+
+        result->data = largeFlag;
+
+        int addPrior = 0;
+        int nodeResult;
+
+        pa = a;
+        pb = b;
+        while ((pa->prior)!=a&&(pb->prior)!=b){
+            pa = pa->prior;
+            pb = pb->prior;
+            nodeResult = largeFlag==1?(pa->data)-(pb->data)+addPrior:-(pa->data)+(pb->data)+addPrior;
+            addPrior = 0;
+            if(nodeResult<0){
+                addPrior = -1;
+                nodeResult = 10000+nodeResult;
+            } else if (nodeResult>9999){
+                nodeResult = nodeResult-10000;
+                addPrior =1;
+            };
+
+            InsDataAfter(result, nodeResult);
+        }
+
+        if (addPrior!=0){
+            InsDataAfter(result, addPrior>0?addPrior:-addPrior);
+        }
+
+        result->data = largeFlag==1?a->data*addPrior:b->data*addPrior;
+    }
+    return result;
+}
+
+主函数和：
+int main(){
+    SuperLongInt *superLongInt;
+    InitSuperLongInt(superLongInt);
+    printf("please input a super long number:");
+    ScanSuperLongInt(superLongInt);
+
+    SuperLongInt *superLongInt2;
+    InitSuperLongInt(superLongInt2);
+    printf("please input a super long number:");
+    ScanSuperLongInt(superLongInt2);
+
+    SuperLongInt *result;
+    result = AddSuperLongInt(superLongInt,superLongInt2);
+    PrintSuperLongInt(result);
+
+    return 0;
+}
+
+
+
+四、	调试分析
+	本次作业完成了对超长整数加法算法的设计，调试该算法时，遇到了一些问题，一是长整数的输出格式有问题，会在控制台少输出中间的零，为此，我修改了输出方式，输出时会首先对链表节点数字的位数进行判断，补足缺少的零。二是长整数一正一负相加时，有时会出现结果错误的情况，后来经调试发现，是用了较小的数减去了一个较大的数，这样相减，借位规则会发生变化，我的解决方法是先判断两整数绝对值的大小，用绝对值较大的数字减去绝对值较小的数字，然后结果的符号与绝对值较大的数的符号相同。
+
+五、	测试结果
+1.	输入数据：
+0
+0
+输出数据：
+0
+
+
+2.	输入数据：
+-2345,6789
+-7654,3211
+
+输出数据：
+-1,0000,0000
+
+3.	输入数据：
+-9999,9999,9999
+-9999,9999,9999
+
+输出数据：
+-1,9999,9999,9998
+
