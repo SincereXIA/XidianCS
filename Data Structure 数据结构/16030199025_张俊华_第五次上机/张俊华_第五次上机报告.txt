@@ -1,0 +1,251 @@
+
+
+
+
+
+
+
+
+实习报告：6.2 哈希表设计
+学院：计算机学院                班级：1603019
+学号：16030199025				     姓名：张俊华
+题目：针对某个集体中的人名设计一个哈希表，使得平均查找长度不超过R，完成相应的建表和查表程序。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+一.需求分析
+1. 初始化：从文件读入人名信息
+2. 哈希表建立：根据哈希规则生成相应的哈希表
+3. 查表程序：通过输入key值查询到对应的记录。
+4. 测试数据为：
+
+周泽宇,16030199001,15291439772
+李孟桐,16030199002,13772513295
+李欢,16030199003,15291699537
+乔壮,16030199004,15991803635
+高宇,16030199005,18829032868
+魏博文,16030199006,18220826682
+何小玲,16030199007,18829035093
+刘宜,16030199008,13709181650
+任仕杰,16030199009,13659290410
+刘子鹏,16030199010,13201588279
+于鑫越,16030199011,18211175604
+徐泽铭,16030199012,18392996301
+曹宁,16030199013,17139060060
+李国安,16030199014,15901497432
+张浩,16030199015,15129983144
+池昕阳,16030199016,13572426539
+张翔南,16030199017,15539780090
+梁豪杰,16030199018,13772031730
+赵祺文,16030199019,15229292713
+刘泉秀,16030199020,15619022932
+朱向东,16030199021,15129188522
+韩翔宇,16030199022,15002993612
+丁亚玮,16030199023,18829035311
+卢修文,16030199024,13165663165
+张俊华,16030199025,15991630127
+李金鑫,16030199026,13279395370
+李天浩,16030199027,15166592068
+宁寰,16030199028,15289389208
+宋泽辉,16030199029,13572441500
+王滋涵,16030199030,15607321003
+
+
+
+
+程序执行的命令为：
+1）初始化                
+2）生成相应的哈希表
+3）查表操作
+
+
+二.概要设计
+1.	为实现上述程序功能，使用哈希表存储学生信息
+
+
+设定哈希表的抽象数据类型定义：
+ADT hash{
+		数据对象：D = { ai|ai ∈map,i=1,2,…,n,n≥0 }
+		数据关系：R1 = {<ai-1,ai> | ai-1,ai ∈ D,i=2,…,n}
+			
+
+		基本操作：
+		
+
+/**
+ * 姓名哈希
+ * @param name
+ * @return
+ */
+int getHash(string name){
+
+/**
+ * 伪随机散列再哈希
+ * @param hash
+ * @param i
+ * @return
+ */
+int reHash(int hash,int i){
+
+/**
+ * 读取信息
+ * @param key
+ * @return
+ */
+userInfo searchInformation(string key){
+
+
+3.	本程序包含以下模块
+1）	主程序模块
+2）	哈希表模块——实现抽象哈希表类型
+3） 用户信息模块――实现用户信息储存与读取
+4）	功能模块――拓展功能
+
+ 
+三、 详细设计
+
+
+1. 学生信息储存结构设计
+
+/**
+ * 用户信息
+ */
+typedef struct userInfo{
+    string name = "";
+    string id;
+    string phone_number;
+}userInfo;
+userInfo DataBase[60];
+
+
+
+2. 初始化功能模块
+/**
+ * 初始化哈希表
+ */
+void initHashMap(){
+    int userNum = 0;
+    FILE * fp = fopen("userInfo.csv","r");
+    if (!fp){
+        cout<<"CAN NOT OPEN FILE userInfo.csv, please check";
+        exit(404);
+    }
+    cout<<"\033[35m>>文件句柄创建成功！正在构建哈希表...\033[0m"<<endl;
+    printf("\n\033[1m\033[33m姓名\t学号\t\t手机号\t\t哈希\033[0m\n");
+    char name[50],id[50],phone_number[50];
+    while (fscanf(fp,"%[^,],%[^,],%[^\r\n]\r\n",name,id,phone_number)!=EOF){
+        userInfo info;
+        info.name = name;
+        info.id = id;
+        info.phone_number = phone_number;
+
+        int hashVal;
+        hashVal = getHash(info.name);
+        for (int i = 0 ;DataBase[hashVal].name!="";i++){
+            hashVal = reHash(getHash(info.name),i);
+        }
+        addInformation(info, hashVal);
+        cout<<info.name+"\t"+info.id+"\t"+info.phone_number+"\t\033[31m"<<hashVal<<"\033[0m"<<endl;
+        userNum++;
+    }
+
+    cout<<"\033[32m哈希表共录入了"<<userNum<<"个数据，共执行了"<<conflictTime<<"次冲突处理\033[0m"<<endl;
+}
+
+
+
+3.	核心功能模块
+
+
+
+/**
+ * 姓名哈希
+ * @param name
+ * @return
+ */
+int getHash(string name){
+    long long n = 0;
+    for (int i = 0; i < name.length(); ++i) {
+        n += toascii(name[i]);
+    }
+    return n%60;
+}
+
+/**
+ * 伪随机散列再哈希
+ * @param hash
+ * @param i
+ * @return
+ */
+int reHash(int hash,int i){
+    conflictTime++;
+    return (hash+3*i+7)%60;
+}
+
+
+/**
+ * 储存信息
+ * @param info
+ * @param hash
+ */
+void addInformation(userInfo info,int hash){
+    DataBase[hash].name = info.name;
+    DataBase[hash].phone_number = info.phone_number;
+    DataBase[hash].id = info.id;
+}
+
+/**
+ * 读取信息
+ * @param key
+ * @return
+ */
+userInfo searchInformation(string key){
+    int hashVal = getHash(key);
+    for (int i = 0; DataBase[hashVal].name!=key&&DataBase[hashVal].name!=""; ++i) {
+        hashVal = reHash(getHash(key),i);
+    }
+    return DataBase[hashVal];
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+四．调试分析
+
+本次上机学习掌握对哈希表的基本操作，并学会了建立一个哈希表，以及哈希冲突之后的处理方法
+
+
+哈希表，是根据关键码值而直接进行访问的数据结构。
+也就是说，它通过把关键码值映射到表中一个位置来访问记录，以加快查找的速度。 
+而当使用哈希表进行查询的时候，就是再次使用哈希函数将key转换为对应的数组下标，并定位到该空间获取value，
+如此一来，就可以充分利用到数组的定位性能进行数据定位。
+
+
+

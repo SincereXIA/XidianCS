@@ -1,0 +1,568 @@
+实习报告：5.2 哈夫曼编/译码器
+学院：计算机学院                班级：1603019
+学号：16030199025				     姓名：张俊华
+题目：编制一个按照要求实现停车场管理的系统。
+一.需求分析
+1. 初始化：从文件读入字符集和字符权值，建立哈夫曼树
+2. 编码，使用建好的哈夫曼树，对文本内容进行编码
+3. 译码：使用哈夫曼树，对编码内容解码
+4. 直观打印哈夫曼树
+4.测试数据为：
+
+字符权值：
+  a	64
+b	13
+c	22
+d	32
+e	103
+f	21
+g	15
+h	47
+i	57
+j	1
+k	5
+l	32
+m	20
+n	57
+o	63
+p	15
+q	1
+r	48
+s	51
+t	80
+u	23
+v	8
+w	18
+x	1
+y	16
+z	1
+ 	186
+5. 程序执行的命令为：
+1）初始化                
+2）puts("[options]\tfunction");
+        puts("[p]\t凹入表打印当前霍夫曼树");
+        puts("[v]\t霍夫曼码打印当前霍夫曼树");
+        puts("[e]\t控制台编码");
+        puts("[d]\t控制台解码");
+        puts("[t]\t编码文件TextFile.txt->CodeFile.txt");
+        puts("[c]\t解码文件CodeFile.txt->TextFile.txt");
+
+二.概要设计
+1.	为实现上述程序功能，使用二叉树实现哈夫曼编码
+设定哈夫曼树的抽象数据类型定义：
+ADT Stack{
+		数据对象：D = { ai|ai ∈hfmTreeNode,i=1,2,…,n,n≥0 }
+		数据关系：R1 = {<ai-1,ai> | ai-1,ai ∈ D,i=2,…,n}
+					R2 = {<ai-1,ai> | ai-1,ai ∈ D,i=2,…,n}
+
+		基本操作：
+		
+
+/**
+ * 添加哈夫曼节点
+ * @param c
+ * @param code
+ * @param tree
+ */
+void buildHfmNode(char c, char* code, hfmTree tree) 
+
+/**
+ * 初始化哈夫曼树
+ */
+hfmTree initHfmTree() {
+
+/**
+ * 打印哈夫曼树
+ */
+void printHfmTree(hfmTree tree, string ss = "") {
+
+
+3.	本程序包含以下模块
+1）	主程序模块
+2）	二叉树模块——实现抽象二叉树数据类型
+3） 哈夫曼树模块——实现哈夫曼树数据类型
+4）	功能模块——拓展哈夫曼树功能 
+三、 详细设计
+
+
+1. 哈夫曼树类型
+
+typedef struct hfmTreeNode {
+    char c;
+    int freq;
+    hfmTreeNode *leftChild;
+    hfmTreeNode *rightChild;
+} hfmTreeNode, *hfmTree;
+/**
+ * 添加哈夫曼节点
+ * @param c
+ * @param code
+ * @param tree
+ */
+void buildHfmNode(char c, char* code, hfmTree tree) {
+    if(!tree){
+        tree = new hfmTreeNode;
+    }
+    for (int i = 0; i < strlen(code); ++i) {
+        if (code[i]-'0'){
+            if (tree->leftChild){
+                tree = tree->leftChild;
+            } else {
+                hfmTreeNode * newLChild = new  hfmTreeNode;
+                newLChild->c = NULL;
+                newLChild->leftChild = NULL;
+                newLChild->rightChild = NULL;
+                tree->leftChild = newLChild;
+                tree = tree->leftChild;
+            }
+        } else{
+            if (tree->rightChild){
+                tree = tree->rightChild;
+            } else {
+                hfmTreeNode * newRChild = new  hfmTreeNode;
+                tree->rightChild = newRChild;
+                newRChild->c = NULL;
+                newRChild->leftChild = NULL;
+                newRChild->rightChild = NULL;
+                tree = tree->rightChild;
+            }
+        }
+    }
+    tree->c = c;
+}
+
+
+/**
+ * 初始化哈夫曼树
+ */
+hfmTree initHfmTree() {
+    hfmTree tree = new hfmTreeNode;
+    tree->c = NULL;
+    tree->leftChild = NULL;
+    tree->rightChild = NULL;
+    return tree;
+}
+
+/**
+ * 打印哈夫曼树
+ */
+void printHfmTree(hfmTree tree, string ss = "") {
+    if (tree == NULL)
+        return;
+    ss += "   ";
+    printHfmTree(tree->rightChild, ss);
+    char c = tree->c ? tree->c : '*';
+    cout << ss << c << endl;
+    printHfmTree(tree->leftChild, ss);
+}
+2. 哈夫曼功能拓展模块
+//打印哈夫曼编码
+void printHfmCode(hfmTree tree, string code = "", FILE* outFile = NULL, bool outputToFile = false) {
+    if (!tree)
+        return;
+    string LCode = code + "1";
+    printHfmCode(tree->leftChild, LCode,outFile,outputToFile);
+
+    string RCode = code + "0";
+    printHfmCode(tree->rightChild, RCode,outFile,outputToFile);
+
+    if (tree->c) {
+        cout << "'" << tree->c << "'" << "\t,\t" << code << endl;
+        if (outputToFile&&outFile){
+            fprintf(outFile,"%c,%s\n",tree->c,code.c_str());
+        }
+    }
+}
+4.	核心功能模块
+void buildHfmTreeFromFreq(FILE *fin, FILE *fout) {
+    list<hfmFreq> freq;
+    char c;
+    int cfreq;
+    while (fscanf(fin, "%c%*[,]", &c) != EOF) {
+        fscanf(fin, "%d%*[\n,\r]", &cfreq);
+        hfmFreq freqNode;
+        freqNode.c = c;
+        freqNode.freq = cfreq;
+        freq.push_back(freqNode);
+    }
+    freq.sort();
+    /*while (!freq.empty()) {
+        hfmFreq Node = freq.front();
+        printf("%c,%d\n",Node.c,Node.freq);
+        freq.pop_front();
+    }*/
+    stack<hfmTree> hfmTreeStack;
+    hfmTree node = new hfmTreeNode;
+    node->c = freq.front().c;
+    node->freq = freq.front().freq;
+    node->rightChild = NULL;
+    node->leftChild = NULL;
+    hfmTreeStack.push(node);
+    freq.pop_front();
+    while (!freq.empty() || !hfmTreeStack.empty()) {
+        hfmTree newParentNode = new hfmTreeNode;
+        if (freq.empty()) {
+            if (hfmTreeStack.size() == 1) {
+                tree = hfmTreeStack.top();
+                printHfmCode(tree,"",fout, true);
+                break;
+            }
+            newParentNode->leftChild = hfmTreeStack.top();
+            hfmTreeStack.pop();
+            newParentNode->rightChild = hfmTreeStack.top();
+            hfmTreeStack.pop();
+            newParentNode->freq = newParentNode->leftChild->freq + newParentNode->rightChild->freq;
+            newParentNode->c = NULL;
+        } else if (hfmTreeStack.top()->freq <= freq.front().freq) {
+            hfmTree newRNode = new hfmTreeNode;
+            newRNode->c = freq.front().c;
+            newRNode->freq = freq.front().freq;
+            newRNode->leftChild = NULL;
+            newRNode->rightChild = NULL;
+
+            hfmTree newLNode = hfmTreeStack.top();
+            newParentNode->leftChild = newLNode;
+            newParentNode->rightChild = newRNode;
+            newParentNode->freq = newRNode->freq + newLNode->freq;
+            newParentNode->c = NULL;
+            hfmTreeStack.pop();
+            freq.pop_front();
+        } else {
+            hfmTree newRNode = new hfmTreeNode;
+            newRNode->c = freq.front().c;
+            newRNode->freq = freq.front().freq;
+            newRNode->leftChild = NULL;
+            newRNode->rightChild = NULL;
+            freq.pop_front();
+
+
+            hfmTree newLNode = new hfmTreeNode;
+            newLNode->c = freq.front().c;
+            newLNode->freq = freq.front().freq;
+            newLNode->leftChild = NULL;
+            newLNode->rightChild = NULL;
+            newParentNode->leftChild = newLNode;
+            newParentNode->rightChild = newRNode;
+            newParentNode->freq = newRNode->freq + newLNode->freq;
+            newParentNode->c = NULL;
+            freq.pop_front();
+        }
+
+        stack<hfmTree> tempStack;
+        while (!hfmTreeStack.empty() && hfmTreeStack.top()->freq < newParentNode->freq) {
+            hfmTree tempNode = hfmTreeStack.top();
+            tempStack.push(tempNode);
+            hfmTreeStack.pop();
+        }
+        hfmTreeStack.push(newParentNode);
+        while (!tempStack.empty()) {
+            hfmTree tempNode = tempStack.top();
+            hfmTreeStack.push(tempNode);
+            tempStack.pop();
+        }
+
+    }
+}
+
+string findCharHfmCode(char c, string tempCode = "",hfmTree tree = tree) {
+
+    string code = "";
+
+    if (tree->c == c) {
+        return tempCode;
+    }
+
+    if (tree->leftChild) {
+        string LCode = tempCode + "1";
+        code = findCharHfmCode(c, LCode,tree->leftChild);
+        if (code.length())
+            return code;
+    }
+    if (tree->rightChild) {
+        string RCode = tempCode + "0";
+        code = findCharHfmCode(c, RCode,tree->rightChild);
+        if (code.length())
+            return code;
+    }
+
+    return code;
+
+
+}
+/**
+ * 初始化
+ * @return
+ */
+int initialization() {
+
+    puts("hfmCoding System alpha");
+    puts("----------------------");
+    puts("CopyRight SincereXIA");
+    puts("张俊华 16030199025");
+    puts("----------------------");
+    puts("初始化...");
+
+    FILE *fin, *fout;
+    fin = fopen("hfmTree.csv", "r");
+    if (fin) {
+        cout<<">>检测到存在保存的哈夫曼树：hfmTree.csv，使用？"<<endl;
+        cout<<">>";
+
+        char c;
+        if ((c = getchar())=='y')
+        {
+            char code[100];
+            tree = initHfmTree();
+            char c;
+            while (fscanf(fin, "%c%*[,]", &c) != EOF) {
+                fscanf(fin, "%s%*[\n,\r]", code);
+                buildHfmNode(c, code, tree);
+            }
+            string ss;
+            printHfmTree(tree,ss);
+            fclose(fin);
+            cout<<">>哈夫曼树初始化完毕"<<endl;
+        }
+    }
+    {
+        fin = fopen("charFre.csv", "r");
+        if (fin) {
+            setbuf(stdin,NULL);
+            cout<<"检测到存在字典频率：charFre.csv，使用？"<<endl;
+            char c = getchar();
+            if (c == 'y'){
+                fout = fopen("hfmTree.csv", "w");
+                buildHfmTreeFromFreq(fin, fout);
+                fclose(fout);
+            }
+        }
+        fclose(fin);
+
+    }
+}
+
+/**
+ * 对文件编码
+ * @param file
+ * @param tree
+ */
+void encodingFromTXT(FILE *inputFile,FILE* outputFile,hfmTree tree = tree){
+    char c;
+    while ((c = fgetc(inputFile))!=EOF){
+        string s = findCharHfmCode(c);
+        fprintf(outputFile,"%s",s.c_str());
+    }
+}
+
+void  decodingFromTXT(FILE *inputFile,FILE *outputFile, hfmTree tree = tree){
+    hfmTree originTree = tree;
+    char c;
+    while ((c = fgetc(inputFile))!=EOF){
+        if (c-'0'){
+            tree = tree->leftChild;
+        } else {
+            tree = tree->rightChild;
+        }
+        if (tree->c) {
+            fputc(tree->c,outputFile);
+            tree = originTree;
+        }
+    }
+}
+
+void menu(){
+
+    char c;
+    FILE* inputFile;
+    FILE* outputFile;
+    string string1;
+    string string2;
+
+    while ((c = getchar())!='q'){
+        puts("[options]\tfunction");
+        puts("[p]\t凹入表打印当前霍夫曼树");
+        puts("[v]\t霍夫曼码打印当前霍夫曼树");
+        puts("[e]\t控制台编码");
+        puts("[d]\t控制台解码");
+        puts("[t]\t编码文件TextFile.txt->CodeFile.txt");
+        puts("[c]\t解码文件CodeFile.txt->TextFile.txt");
+        puts("[q]\t退出");
+
+        switch (c){
+            case 'p':
+                printHfmTree(tree);
+                break;
+            case 'v':
+                printHfmCode(tree);
+                break;
+            case 'e':
+                setbuf(stdin,NULL);
+                puts(">>请输入:");
+                cin>>string1;
+                cout<<string1<<"的哈夫曼码为：";
+                zipTextByHfm(string1);
+                cout<<endl;
+                break;
+            case 'd':
+                setbuf(stdin,NULL);
+                puts(">>请输入:");
+                cin>>string2;
+                cout<<string2<<"的原码为：";
+                unzipTextByHfm(string2);
+                cout<<endl;
+                break;
+            case 't':
+                inputFile = fopen("TextFile.txt","r");
+                outputFile = fopen("CodeFile.txt","wb");
+                encodingFromTXT(inputFile,outputFile);
+                fclose(inputFile);
+                fclose(outputFile);
+                puts("文件编码完成！");
+                break;
+            case 'c':
+                inputFile = fopen("CodeFile.txt","r");
+                outputFile = fopen("TextFile.txt","wb");
+                decodingFromTXT(inputFile,outputFile);
+                fclose(inputFile);
+                fclose(outputFile);
+                puts("文件解码完成！");
+
+        }
+        setbuf(stdin,NULL);
+        puts("\n\n\n");
+        setbuf(stdout,NULL);
+    }
+    setbuf(stdin,NULL);
+    setbuf(stdout,NULL);
+
+    setbuf(stdin,NULL);
+
+}
+
+
+
+int main() {
+    initialization(); //初始化
+    menu();           //菜单                   //SincereXIA 2017/11/12
+    return 0;
+}
+    
+四．调试分析
+
+1.	本次上机学习掌握了二叉树和哈夫曼编码的算法，对哈夫曼编码的算法思想有了更深刻的认识。
+2.	本实习作业大量使用了对文件的操作，编写过程中遇到了许多问题，相比前几次上机，本次上机所需的代码量显著增加，编写和调试时，更需要耐心。
+
+
+测试结果：
+
+E:\workspace\cfile\DStry\cmake-build-debug\DStry.exe
+hfmCoding System alpha
+----------------------
+CopyRight SincereXIA
+张俊华 16030199025
+----------------------
+初始化...
+>>检测到存在保存的哈夫曼树：hfmTree.csv，使用？
+>>y
+               e
+            *
+               t
+         *
+                        p
+                     *
+                        b
+                  *
+                           v
+                        *
+                           k
+                     *
+                              j
+                           *
+                              q
+                        *
+                              x
+                           *
+                              z
+               *
+                     c
+                  *
+                     f
+            *
+                  h
+               *
+                  d
+      *
+               a
+            *
+               o
+         *
+                     m
+                  *
+                     w
+               *
+                     y
+                  *
+                     g
+            *
+                  l
+               *
+                  u
+   *
+               i
+            *
+               n
+         *
+               s
+            *
+               r
+      *
+          
+>>哈夫曼树初始化完毕
+检测到存在字典频率：charFre.csv，使用？
+n
+[options]	function
+[p]	凹入表打印当前霍夫曼树
+[v]	霍夫曼码打印当前霍夫曼树
+[e]	控制台编码
+[d]	控制台解码
+[t]	编码文件TextFile.txt->CodeFile.txt
+[c]	解码文件CodeFile.txt->TextFile.txt
+[q]	退出
+
+
+
+
+e
+[options]	function
+[p]	凹入表打印当前霍夫曼树
+[v]	霍夫曼码打印当前霍夫曼树
+[e]	控制台编码
+[d]	控制台解码
+[t]	编码文件TextFile.txt->CodeFile.txt
+[c]	解码文件CodeFile.txt->TextFile.txt
+[q]	退出
+>>请输入:
+hello
+hello的哈夫曼码为：00110000001110011100101
+
+
+
+
+d
+[options]	function
+[p]	凹入表打印当前霍夫曼树
+[v]	霍夫曼码打印当前霍夫曼树
+[e]	控制台编码
+[d]	控制台解码
+[t]	编码文件TextFile.txt->CodeFile.txt
+[c]	解码文件CodeFile.txt->TextFile.txt
+[q]	退出
+>>请输入:
+00110000001110011100101
+00110000001110011100101的原码为：hello
+  
+
+
+
+
+
