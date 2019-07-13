@@ -1,4 +1,0 @@
-Bob 90
-David 80
-George 84
-Jack 64
