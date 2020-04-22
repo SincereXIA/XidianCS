@@ -24,18 +24,18 @@
 
 - 专业平台基础课
 
-  - [微机原理与基础](https://github.com/SincereXIA/XidianCS/tree/master/%E4%B8%93%E4%B8%9A%E5%B9%B3%E5%8F%B0%E5%9F%BA%E7%A1%80%E8%AF%BE/%E5%BE%AE%E6%9C%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1)
-  - [数字电路与逻辑设计](https://github.com/SincereXIA/XidianCS/tree/master/专业平台基础课/数字电路与逻辑设计/)
-  - [模拟电子技术基础](https://github.com/SincereXIA/XidianCS/tree/master/%E4%B8%93%E4%B8%9A%E5%B9%B3%E5%8F%B0%E5%9F%BA%E7%A1%80%E8%AF%BE/%E6%A8%A1%E6%8B%9F%E7%94%B5%E5%AD%90%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80)
+  - [微机原理与系统设计](/专业平台基础课/微机原理与系统设计/)
+  - [数字电路与逻辑设计](/专业平台基础课/数字电路与逻辑设计/)
+  - [模拟电子技术基础](专业平台基础课/模拟电子技术基础/)
   - 待更新
 
 - 专业核心课
 
-  - [数据结构](https://github.com/SincereXIA/XidianCS/tree/master/%E4%B8%93%E4%B8%9A%E6%A0%B8%E5%BF%83%E8%AF%BE/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84)
-  - [计算机组织与体系结构](https://github.com/SincereXIA/XidianCS/tree/master/%E4%B8%93%E4%B8%9A%E6%A0%B8%E5%BF%83%E8%AF%BE/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E7%BB%87%E4%B8%8E%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84)
-  - [计算机通信与网络](https://github.com/SincereXIA/XidianCS/tree/master/%E4%B8%93%E4%B8%9A%E6%A0%B8%E5%BF%83%E8%AF%BE/%E8%AE%A1%E7%AE%97%E6%9C%BA%E9%80%9A%E4%BF%A1%E4%B8%8E%E7%BD%91%E7%BB%9C)
-  - [操作系统](https://github.com/SincereXIA/XidianCS/tree/master/%E4%B8%93%E4%B8%9A%E6%A0%B8%E5%BF%83%E8%AF%BE/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F)
-  - [数据库系统](https://github.com/SincereXIA/XidianCS/tree/master/%E4%B8%93%E4%B8%9A%E6%A0%B8%E5%BF%83%E8%AF%BE/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F)
+  - [数据结构](/专业核心课/数据结构/)
+  - [计算机组织与体系结构](/专业核心课/计算机组织与体系结构/)
+  - [计算机通信与网络](/专业核心课/计算机通信与网络/)
+  - [操作系统](/专业核心课/操作系统/)
+  - [数据库系统](/专业核心课/数据库系统/)
   - 待更新
 
 - 专业选修课
