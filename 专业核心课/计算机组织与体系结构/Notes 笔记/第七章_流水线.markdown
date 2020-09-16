@@ -1,0 +1,30 @@
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200715100554570.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzYyNzU2MQ==,size_16,color_FFFFFF,t_70)
+# 时空图
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200715100708615.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzYyNzU2MQ==,size_16,color_FFFFFF,t_70)
+按照段画的时空图
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200715100748653.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzYyNzU2MQ==,size_16,color_FFFFFF,t_70)
+按照指令画的时空图
+
+各段时间相同时：
+启动后需要 装入时间 （级数-1）×时钟周期
+装入后 每一个时钟周期都有 一个指令完成
+结束后会有 排空周期
+
+每跳转一次 需要重新 装入 一次
+
+吞吐率 TP单位时间完成任务数
+
+最大吞吐量 稳定期单位时间完成任务数
+却决于各段所需时钟周期最大值（提高可以 细分瓶颈段 或者 重复设置瓶颈段）
+
+加速比 非流水T(1)与流水T(m)之比
+
+效率 流水线设备利用率   时空图工作块与时空图总和之比
+
+# 相关
+结构相关
+数据相关：写后写WRW 读后写 WAR 写后读RAW
+控制相关：跳转
+
+超标量
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200715102633920.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzYyNzU2MQ==,size_16,color_FFFFFF,t_70)
