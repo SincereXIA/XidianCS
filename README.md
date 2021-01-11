@@ -45,7 +45,7 @@
 
 ## 贡献投稿
 
-目前，该仓库由 [@SincereXIA](https://github.com/SincereXIA/) 维护，如果您有好的资源（不限于现有的资源类型），欢迎参与贡献资源
+目前，该仓库由 [@SincereXIA](https://github.com/SincereXIA/) 、[@csjue](https://github.com/csjue) 维护， 如果您有好的资源（不限于现有的资源类型），欢迎参与贡献资源
 
 可以通过如下方式参与项目：
 
