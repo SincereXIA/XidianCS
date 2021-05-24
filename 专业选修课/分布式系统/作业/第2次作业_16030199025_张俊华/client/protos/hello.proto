@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "SincereXIA.distribrpc.hellotest";
+option java_outer_classname = "HelloProto";
+
+package helloworld;
+
+service Greeter {
+    rpc SayHello(HelloGreeting) returns (HelloReply) {}
+    rpc doAdd(Num) returns (Num){}
+}
+
+message Num{
+    repeated int32 num = 1;
+}
+
+message HelloGreeting {
+    string name = 1;
+}
+
+message HelloReply {
+    string message = 1;
+}
