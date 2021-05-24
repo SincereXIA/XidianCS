@@ -1,0 +1,3 @@
+﻿  keyboard.cpp
+f:\workspace\cpp\graphics\transformation\transformation\keyboard.cpp(108): warning C4326: “main”的返回类型应为“int”而非“void”
+  transformation.vcxproj -> F:\workspace\cpp\graphics\transformation\Debug\transformation.exe

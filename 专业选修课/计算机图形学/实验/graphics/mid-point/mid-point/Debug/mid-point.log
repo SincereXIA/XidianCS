@@ -1,0 +1,3 @@
+﻿  main.cpp
+f:\workspace\cpp\graphics\mid-point\mid-point\main.cpp(176): warning C4326: “main”的返回类型应为“int”而非“void”
+  mid-point.vcxproj -> F:\workspace\cpp\graphics\mid-point\Debug\mid-point.exe
