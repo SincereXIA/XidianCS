@@ -56,6 +56,8 @@
   - 软件学院：[操作系统课程设计：linux 内核实验](集中实验环节/操作系统课程设计)
 - 公共选修课
   - 待更新
+- 其他：
+  - [保研：心得与资料](其他/保研)
 
 ## 贡献投稿
 
@@ -64,7 +66,7 @@
 可以通过如下方式参与项目：
 
 - 帮忙上传: 可以发给仓库维护者帮忙上传，或者提 issue
-- 用网页操作或者[桌面版](https://desktop.github.com/) fork and pull request. 操作方式可以参考 [这里](https://blog.csdn.net/qq_29277155/article/details/51048990) 和[这里](https://blog.csdn.net/zhangw0_0/article/details/50667891),[PR](https://blog.csdn.net/huutu/article/details/51018317)
+- Fork 本仓库，上传资源之后提交 pull request. 
 
 ## 版权说明
 
