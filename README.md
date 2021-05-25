@@ -1,6 +1,6 @@
 # XidianCS - 西安电子科技大学计算机科学与技术课程资源
 
-![](https://img.shields.io/github/repo-size/sincerexia/XidianCS) ![](https://img.shields.io/github/stars/SincereXIA/XIdianCS?style=social)
+![](https://img.shields.io/github/repo-size/sincerexia/XidianCS) ![](https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-blue) ![](https://img.shields.io/github/stars/SincereXIA/XIdianCS?style=social)
 
 西安电子科技大学 计算机科学与技术专业 笔记、上机作业、实验 etc.
 
