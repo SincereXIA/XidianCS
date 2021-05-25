@@ -14,6 +14,8 @@
 
 课程目录结构源自 16级计算机学院教改班 培养方案
 
+ :star2:***资源整理不易，如果您觉得该仓库对您有帮助，不妨 Star***
+
 
 
 ## 如何下载
@@ -80,3 +82,4 @@
 本仓库所有讲义PPT、试卷等相关资源为各科目任课老师所有，如果侵犯了您的权益，请告知我们
 
 本仓库所有笔记、上机作业等内容，若无特殊说明，为 [@SincereXIA](https://github.com/SincereXIA/) 创作，谨以[知识共享署名 - 非商业性使用 - 相同方式共享 4.0 国际许可协议](http://creativecommons.org/licenses/by-nc-sa/4.0/) 授权。[![img](https://camo.githubusercontent.com/d81c1a80f6c3d68d5f1a80b016db6802aa480411/68747470733a2f2f692e6372656174697665636f6d6d6f6e732e6f72672f6c2f62792d6e632d73612f342e302f38307831352e706e67)](https://camo.githubusercontent.com/d81c1a80f6c3d68d5f1a80b016db6802aa480411/68747470733a2f2f692e6372656174697665636f6d6d6f6e732e6f72672f6c2f62792d6e632d73612f342e302f38307831352e706e67)
+
