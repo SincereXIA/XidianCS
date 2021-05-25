@@ -1,6 +1,10 @@
 # XidianCS - 西安电子科技大学计算机科学与技术课程资源
 
+![](https://img.shields.io/github/repo-size/sincerexia/XidianCS) ![](https://img.shields.io/github/stars/SincereXIA/XIdianCS?style=social)
+
 西安电子科技大学 计算机科学与技术专业 笔记、上机作业、实验 etc.
+
+
 
 ## 关于
 
@@ -9,6 +13,8 @@
 > 包括但不限于：ppt 讲义、上机实验报告、课程笔记、期末试卷等
 
 课程目录结构源自 16级计算机学院教改班 培养方案
+
+
 
 ## 如何下载
 
