@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Android 触控板</string>
+    <string name="action_auto_discovery">自动发现</string>
+    <string name="action_disconnect">断开连接</string>
+    <string name="action_qr_scan">扫描二维码</string>
+
+    <string name="connecting">连接中...</string>
+    <string name="disconnected">未连接</string>
+    <string name="disconnected_by_server">网络中断</string>
+    <string name="connected">已连接</string>
+    <string name="server_not_found">未发现服务端</string>
+    <string name="already_connected">已经建立连接</string>
+
+</resources>
