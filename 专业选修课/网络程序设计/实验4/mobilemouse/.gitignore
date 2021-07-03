@@ -1,0 +1,17 @@
+client/android/.gradle/
+client/android/.idea/
+client/android/app/build/
+client/android/zxing-android-embedded/build/
+client/android/build/
+client/android/local.properties
+client/android/import-summary.txt
+client/android/*.iml
+client/android/app/*.iml
+client/android/zxing-android-embedded/*.iml
+server/java/*.iml
+server/out/
+server/.idea/
+server/java/.idea/
+server/java/.settings/
+server/java/bin/
+server/java/.project
