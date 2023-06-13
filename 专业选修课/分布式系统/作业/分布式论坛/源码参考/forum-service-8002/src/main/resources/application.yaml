@@ -1,0 +1,23 @@
+server:
+  port: 8002
+
+spring:
+  application:
+    name: forum-service
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 658766@Jzh
+    url: jdbc:mysql://127.0.0.1:3306/forum?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7001/eureka/
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+
+snowflake:
+  worker-id: 2
+  datacenter-id: 2
