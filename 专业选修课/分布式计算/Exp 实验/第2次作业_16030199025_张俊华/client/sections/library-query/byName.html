@@ -1,0 +1,102 @@
+<template class="task-template">
+    <section id="queryByName-section" class="section js-section u-category-windows">
+        <header class="section-header">
+            <div class="section-wrapper">
+                <h1>
+                    <svg class="section-icon"><use xlink:href="assets/img/icons.svg#icon-windows"></use></svg>
+                    GRPC 远程调用图书馆——书籍名称模糊检索
+                </h1>
+                <h3>本项目服务器端采用 <code>Hibernate</code> 数据库驱动</h3>
+
+                <p>Hibernate是一种Java语言下的对象关系映射解决方案。它是使用GNU宽通用公共许可证发行的自由、开源的软件。它为面向对象的领域模型到传统的关系型数据库的映射，提供了一个使用方便的框架。</p>
+                <h2>请输入书名关键字</h2>
+                <div class="demo-controls">
+                    <input class="demo-input" type="text" id = "NAME" />
+                    <button class="demo-button" id="queryByName">查询</button>
+                </div>
+            </div>
+
+        </header>
+
+        <div class="demo">
+            <div class="demo-wrapper">
+                <div id = "ByNameResult">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="demo">
+            <div class="demo-wrapper">
+                <button id="manage-window-demo-toggle" class="js-container-target demo-toggle-button">数据库表结构
+                    <div class="demo-meta u-avoid-clicks">Supports: Win, macOS, Linux <span class="demo-meta-divider">|</span> Process: Main</div>
+                </button>
+                <div class="demo-box">
+                    <div class="demo-controls">
+                        <button class="demo-button" id="manage-window">View Demo</button>
+                        <span class="demo-response" id="manage-window-reply"></span>
+                    </div>
+                    <p>In this demo we create a new window and listen for <code>move</code> and <code>resize</code> events on it. Click the demo button, change the new window and see the dimensions and position update here, above.</p>
+                    <p>There are a lot of methods for controlling the state of the window such as the size, location, and focus status as well as events to listen to for window changes. Visit the <a href="http://electron.atom.io/docs/api/browser-window">documentation<span class="u-visible-to-screen-reader">(opens in new window)</span></a> for the full list.</p>
+                    <h5>Renderer Process</h5>
+                    <pre><code data-path="renderer-process/windows/manage-window.js"></code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo">
+            <div class="demo-wrapper">
+                <button id="using-window-events-demo-toggle" class="js-container-target demo-toggle-button">对象化数据实例
+                    <div class="demo-meta u-avoid-clicks">Supports: Win, macOS, Linux <span class="demo-meta-divider">|</span> Process: Main</div>
+                </button>
+                <div class="demo-box">
+                    <div class="demo-controls">
+                        <button class="demo-button" id="listen-to-window">View Demo</button>
+                        <button  class="demo-button disappear" id="focus-on-modal-window">Focus on Demo</button>
+                    </div>
+                    <p>In this demo, we create a new window and listen for <code>blur</code> event on it. Click the demo button to create a new modal window, and switch focus back to the parent window by clicking on it. You can click the <i>Focus on Demo</i> button to switch focus to the modal window again.</p>
+                    <h5>Renderer Process</h5>
+                    <pre><code data-path="renderer-process/windows/using-window-events.js"></code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo">
+            <div class="demo-wrapper">
+                <button class="js-container-target demo-toggle-button">实现模糊查询
+                    <div class="demo-meta u-avoid-clicks">Supports: Win, macOS, Linux <span class="demo-meta-divider">|</span> Process: Main</div>
+                </button>
+                <div class="demo-box">
+                    <div class="demo-controls">
+                        <button class="demo-button" id="frameless-window">View Demo</button>
+                    </div>
+                    <p>
+                        A frameless window is a window that has no <a href="https://developer.mozilla.org/en-US/docs/Glossary/Chrome">"chrome"</a>,
+                        such as toolbars, title bars, status bars, borders, etc. You can make a browser window frameless by setting
+                        <code>frame</code> to <code>false</code> when creating the window.
+                    </p>
+
+                    <h5>Renderer Process</h5>
+                    <pre><code data-path="renderer-process/windows/frameless-window.js"></code></pre>
+
+                    <p>Windows can have a transparent background, too. By setting the <code>transparent</code> option to <code>true</code>, you can also make your frameless window transparent:</p>
+                    <pre>
+<code class="language-js">var win = new BrowserWindow({
+  transparent: true,
+  frame: false
+})</code></pre>
+
+                    <p>
+                        For more details, see the <a href="http://electron.atom.io/docs/api/frameless-window/">Frameless Window</a> documentation.
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+          require('./renderer-process/library-query/ByName.js')
+        </script>
+
+    </section>
+</template>

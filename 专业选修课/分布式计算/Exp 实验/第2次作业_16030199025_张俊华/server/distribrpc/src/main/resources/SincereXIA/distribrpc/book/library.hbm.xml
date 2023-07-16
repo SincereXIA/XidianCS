@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="GrpcProto.dbBook" table="books" catalog="library">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="bookName" type="string">
+            <column name="bookname" length="200" not-null="true" unique="true" />
+        </property>
+        <property name="bookAuthor" type="string">
+            <column name="bookauthor" length="200" not-null="true" unique="true" />
+        </property>
+        <property name="bookInfo" type="string">
+            <column name="bookinfo" length="200" not-null="true" unique="true" />
+        </property>
+    </class>
+</hibernate-mapping>

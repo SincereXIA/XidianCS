@@ -1,0 +1,108 @@
+<template class="task-template">
+  <section id="showBooks-section" class="section js-section u-category-system">
+    <header class="section-header">
+      <div class="section-wrapper">
+        <h1>
+          <svg class="section-icon"><use xlink:href="assets/img/icons.svg#icon-windows"></use></svg>
+          GRPC 远程调用图书馆——书籍管理后台
+        </h1>
+        <h2 id = "LoginWelcome">
+        </h2>
+        <h3>Electron（原名为Atom Shell）是GitHub开发的一个开源框架。它允许使用Node.js（作为后端）和Chromium（作为前端）完成桌面GUI应用程序的开发。Electron现已被多个开源Web应用程序用于前端与后端的开发，著名项目包括GitHub的Atom和微软的Visual Studio Code</h3>
+
+        <div class="demo-controls">
+          <button class="demo-button" id="queryAllBook">查询所有书籍</button>
+          <button class="demo-button" id="delBook">删除书籍</button>
+        </div>
+
+
+
+      </div>
+
+    </header>
+
+    <div class="demo">
+      <div class="demo-wrapper">
+        <div id = "AllBookResult">
+        </div>
+      </div>
+    </div>
+
+    <div class="demo">
+      <div class="demo-wrapper">
+        <button id="manage-window-demo-toggle" class="js-container-target demo-toggle-button">添加书籍
+          <div class="demo-meta u-avoid-clicks">添加一本新书</div>
+        </button>
+        <div class="demo-box">
+            <h5>书名：</h5><input class="demo-input" type="text" id = "addBookName" /><br>
+            <h5>作者：</h5><input class="demo-input" type="text" id = "addBookAuthor" /><br>
+            <label class="demo-text" >
+              <textarea id = "addBookInfo" class="demo-protip">简介</textarea>
+            </label><br>
+            <button class="demo-button" id="addBook">确定添加</button>
+            <h4 id="addStatus"></h4>
+            <span class="demo-response" id="manage-window-reply"></span>
+           <p>In this demo we create a new window and listen for <code>move</code> and <code>resize</code> events on it. Click the demo button, change the new window and see the dimensions and position update here, above.</p>
+          <p>There are a lot of methods for controlling the state of the window such as the size, location, and focus status as well as events to listen to for window changes. Visit the <a href="http://electron.atom.io/docs/api/browser-window">documentation<span class="u-visible-to-screen-reader">(opens in new window)</span></a> for the full list.</p>
+          <h5>Renderer Process</h5>
+          <pre><code data-path="renderer-process/windows/manage-window.js"></code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo">
+      <div class="demo-wrapper">
+        <button id="using-window-events-demo-toggle" class="js-container-target demo-toggle-button">Window events: blur and focus
+          <div class="demo-meta u-avoid-clicks">Supports: Win, macOS, Linux <span class="demo-meta-divider">|</span> Process: Main</div>
+        </button>
+        <div class="demo-box">
+          <div class="demo-controls">
+            <button class="demo-button" id="listen-to-window">View Demo</button>
+            <button  class="demo-button disappear" id="focus-on-modal-window">Focus on Demo</button>
+          </div>
+          <p>In this demo, we create a new window and listen for <code>blur</code> event on it. Click the demo button to create a new modal window, and switch focus back to the parent window by clicking on it. You can click the <i>Focus on Demo</i> button to switch focus to the modal window again.</p>
+          <h5>Renderer Process</h5>
+          <pre><code data-path="renderer-process/windows/using-window-events.js"></code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo">
+      <div class="demo-wrapper">
+        <button class="js-container-target demo-toggle-button">Create a frameless window
+          <div class="demo-meta u-avoid-clicks">Supports: Win, macOS, Linux <span class="demo-meta-divider">|</span> Process: Main</div>
+        </button>
+        <div class="demo-box">
+          <div class="demo-controls">
+            <button class="demo-button" id="frameless-window">View Demo</button>
+          </div>
+          <p>
+            A frameless window is a window that has no <a href="https://developer.mozilla.org/en-US/docs/Glossary/Chrome">"chrome"</a>,
+            such as toolbars, title bars, status bars, borders, etc. You can make a browser window frameless by setting
+            <code>frame</code> to <code>false</code> when creating the window.
+          </p>
+
+          <h5>Renderer Process</h5>
+          <pre><code data-path="renderer-process/windows/frameless-window.js"></code></pre>
+
+          <p>Windows can have a transparent background, too. By setting the <code>transparent</code> option to <code>true</code>, you can also make your frameless window transparent:</p>
+          <pre>
+<code class="language-js">var win = new BrowserWindow({
+  transparent: true,
+  frame: false
+})</code></pre>
+
+        <p>
+          For more details, see the <a href="http://electron.atom.io/docs/api/frameless-window/">Frameless Window</a> documentation.
+        </p>
+
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      require('./renderer-process/library-manage/showBooks.js')
+    </script>
+
+  </section>
+</template>
