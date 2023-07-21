@@ -1,4 +1,0 @@
-﻿  鼠标点图.cpp
-e:\workspace\cpp\graphics\color\color\color\鼠标点图.cpp(7): warning C4091: “typedef ”: 没有声明变量时忽略“point”的左侧
-e:\workspace\cpp\graphics\color\color\color\鼠标点图.cpp(82): warning C4390: “;”: 找到空的受控语句；这是否是有意的?
-  color.vcxproj -> E:\workspace\cpp\graphics\color\color\Debug\color.exe

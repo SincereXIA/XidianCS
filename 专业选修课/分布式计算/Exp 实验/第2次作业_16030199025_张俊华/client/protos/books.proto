@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "SincereXIA.distribrpc.book";
+option java_outer_classname = "BookProto";
+
+package library;
+
+message BookID{
+    int32 id = 1;
+}
+
+message BookName{
+    string name = 1;
+}
+
+message Book{
+    BookID bookID = 1;
+    BookName bookName = 2;
+    string bookAuthor = 3;
+    string bookInfo = 4;
+}
+
+message BookList{
+    repeated Book book = 1;
+}
+
+message UserID{
+    string userName = 1;
+    string userPwd = 2;
+}
+
+message Request{
+    BookID bookID = 1;
+    BookName bookName = 2;
+    Book book = 3;
+    UserID userID = 4;
+}
+
+message Reply{
+    int32 status = 1;
+    string msg = 2;
+}
+
+service BookManager{
+    rpc add(Request) returns (Reply){};
+    rpc queryByID(Request) returns (Book){};
+    rpc queryByName(Request) returns (BookList){};
+    rpc delete(Request) returns (Reply){};
+    rpc login(UserID) returns (Reply){};
+}
