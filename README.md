@@ -20,7 +20,11 @@
 
 ## 如何下载
 
-- 由于 Github 访问速度受限，且仓库容量有限。部分资源上传到了个人的网盘中，您可以使用 <http://share.sumblog.cn/#/2/main/XidianCS> 查看并下载完整的资源。
+- ~~由于 Github 访问速度受限，且仓库容量有限。部分资源上传到了个人的网盘中，您可以使用 <http://share.sumblog.cn/#/2/main/XidianCS> 查看并下载完整的资源~~ 注：网盘失效，如果您有好的存储解决方法，欢迎与我联系。
+- 目前针对下载速度慢的解决方案：
+  - Github 加速下载：[https://github.welab.eu.org/](https://github.welab.eu.org/)
+  - 油猴插件：[Github 增强 - 高速下载](https://greasyfork.org/zh-CN/scripts/412245-github-%E5%A2%9E%E5%BC%BA-%E9%AB%98%E9%80%9F%E4%B8%8B%E8%BD%BD)
+  - Github 目录下载：[https://download-directory.github.io/](https://download-directory.github.io/)
 
 
 ## 索引
