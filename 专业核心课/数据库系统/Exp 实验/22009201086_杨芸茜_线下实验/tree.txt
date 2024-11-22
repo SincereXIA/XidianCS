@@ -1,0 +1,50 @@
+卷 Data 的文件夹 PATH 列表
+卷序列号为 7EBD-06B9
+D:.
+│  report.md
+│  tree.txt
+│  建表.sql
+│  查询功能.sql
+│  
+├─assets
+│      image-20241117155403453.png
+│      image-20241117155912475.png
+│      image-20241117222023715.png
+│      image-20241118005059252.png
+│      image-20241118092813664.png
+│      image-20241118092838701.png
+│      image-20241118092852146.png
+│      image-20241118093931319.png
+│      image-20241118094551004.png
+│      image-20241118100500489.png
+│      image-20241118100649724.png
+│      image-20241118100913445.png
+│      概念结构-1731764678452-2.png
+│      概念结构.png
+│      逻辑结构设计.png
+│      
+├─架构图
+│      概念结构.png
+│      概念结构.vsdx
+│      逻辑结构设计.png
+│      逻辑结构设计.vsdx
+│      
+├─测试数据
+│      class.sql
+│      conduct.sql
+│      course.sql
+│      course.xlsx
+│      curricular_variable.sql
+│      department.sql
+│      department.xlsx
+│      major.sql
+│      major.xlsx
+│      plan.sql
+│      student.sql
+│      teacher.sql
+│      测试数据是否插入正确.sql
+│      
+└─触发器
+        conduct插入检查.sql
+        仅允许一次补考触发器.sql
+        
